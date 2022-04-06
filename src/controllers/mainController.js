@@ -4,13 +4,11 @@ import { assitanceStringify } from "../adapters/main";
 import { createItemService } from "../services/createItemService";
 import { update } from "../querys/output";
 import { findItemMonday } from "../monday/findItemMonday";
-import moment from "moment";
-import "moment-timezone";
+import { currentDate, objectTime } from "../utilities/moment/timezone";
 
 const createItem = async (req, res) => {
   try {
     const { body } = req;
-    const currentDate = moment().format("YYYY-MM-DD");
     const { err, itemsFound, message } = await findItemMonday({
       board_id: boards.Example2,
       column_id: outputColumns.fecha,
@@ -23,7 +21,6 @@ const createItem = async (req, res) => {
         message,
       });
     const isItemFound = itemsFound?.find(({ name }) => name === body?.id);
-    console.log("ITEMS FOUND: ", isItemFound);
     if (isItemFound)
       return res.status(200).json({
         err: true,
@@ -62,7 +59,6 @@ const updateDate = async (req, res) => {
   try {
     const { body } = req;
     const { output } = body;
-    const currentDate = moment().format("YYYY-MM-DD");
     const variables = {
       board_id: boards.Example2,
       column_id: outputColumns.fecha,
@@ -75,13 +71,10 @@ const updateDate = async (req, res) => {
         err: true,
         isUpdated: false,
         message,
-        currentDate,
       });
     let itemId = itemsFound.find(({ name }) => name === body?.id);
     if (!itemId)
       return res.status(200).json({
-        currentDate,
-        itemsFound,
         icon: "info",
         err: true,
         isUpdated: false,
@@ -92,10 +85,7 @@ const updateDate = async (req, res) => {
       board_id: boards.Example2,
       item_id: Number(itemId?.id),
       column_id: outputColumns.hora_salida,
-      value: JSON.stringify({
-        hour: moment(output).tz("America/Bogota").hour(),
-        minute: moment(output).tz("America/Bogota").minute(),
-      }),
+      value: JSON.stringify(objectTime(output)),
     };
     const resp2 = await axiosInstance({
       url: "/",

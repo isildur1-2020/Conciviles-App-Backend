@@ -14,13 +14,9 @@
  * novelity
  * observations
  */
-import moment from "moment";
-import "moment-timezone";
-export const assitanceStringify = (data) => {
-  const inputHour = moment(data?.input).tz("America/Bogota").hour();
-  const inputMinute = moment(data?.input).tz("America/Bogota").minute();
-  console.log("INPUT TIME:", inputHour, inputMinute);
-  return JSON.stringify({
+import { objectTime, currentDate } from "../utilities/moment/timezone";
+export const assitanceStringify = (data) =>
+  JSON.stringify({
     // APELLIDOS Y NOMBRES
     texto0: data?.name.toString(),
     // CARGO
@@ -36,16 +32,13 @@ export const assitanceStringify = (data) => {
       ids: [Number(data?.location)],
     },
     // FECHA
-    fecha: moment(data?.date).format("YYYY-MM-DD"),
+    fecha: currentDate(data?.date),
     // TURNO
     men__desplegable79: {
       ids: [Number(data?.turn)],
     },
     // ENTRADA
-    hora: {
-      hour: inputHour,
-      minute: inputMinute,
-    },
+    hora: objectTime(data?.input),
     // SALIDA
     dup__of_hora: null,
     // NOVEDAD
@@ -57,4 +50,3 @@ export const assitanceStringify = (data) => {
     //SUPERVISOR
     texto5: data?.supervisor,
   });
-};

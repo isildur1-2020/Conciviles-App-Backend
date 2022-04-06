@@ -9,4 +9,8 @@ export const objectTime = (date) => {
   };
 };
 
-export const currentDate = () => moment().tz("America/Bogota");
+export const currentDate = (date = null) => {
+  !date
+    ? moment().tz("America/Bogota").format("YYYY-MM-DD")
+    : moment(date).tz("America/Bogota").format("YYYY-MM-DD");
+};
