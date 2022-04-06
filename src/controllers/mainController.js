@@ -75,6 +75,7 @@ const updateDate = async (req, res) => {
     let itemId = itemsFound.find(({ name }) => name === body?.id);
     if (!itemId)
       return res.status(200).json({
+        currentDate,
         icon: "info",
         err: true,
         isUpdated: false,
