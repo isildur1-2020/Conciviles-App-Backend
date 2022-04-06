@@ -1,16 +1,15 @@
 import "moment-timezone";
 import moment from "moment";
 
-export const objectTime = (date) => {
-  const moment = moment(date).tz("America/Bogota");
+export const objectTime = (time) => {
+  const date = moment(time).tz("America/Bogota");
   return {
-    hour: moment.hour(),
-    minute: moment.minute(),
+    hour: date.hour(),
+    minute: date.minute(),
   };
 };
 
-export const currentDate = (date = null) => {
-  !date
-    ? moment().tz("America/Bogota").format("YYYY-MM-DD")
-    : moment(date).tz("America/Bogota").format("YYYY-MM-DD");
+export const currentDate = (time = null) => {
+  const date = !time ? moment() : moment(time);
+  return date.tz("America/Bogota").format("YYYY-MM-DD");
 };

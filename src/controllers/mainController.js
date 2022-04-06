@@ -12,7 +12,7 @@ const createItem = async (req, res) => {
     const { err, itemsFound, message } = await findItemMonday({
       board_id: boards.Example2,
       column_id: outputColumns.fecha,
-      column_values: [currentDate],
+      column_values: [currentDate()],
     });
     if (err)
       return res.status(200).json({
@@ -62,7 +62,7 @@ const updateDate = async (req, res) => {
     const variables = {
       board_id: boards.Example2,
       column_id: outputColumns.fecha,
-      column_values: [currentDate],
+      column_values: [currentDate()],
     };
     const resp = await findItemMonday(variables);
     const { err, itemsFound, message } = resp;
@@ -75,7 +75,7 @@ const updateDate = async (req, res) => {
     let itemId = itemsFound.find(({ name }) => name === body?.id);
     if (!itemId)
       return res.status(200).json({
-        currentDate,
+        time: currentDate(),
         icon: "info",
         err: true,
         isUpdated: false,
