@@ -2,8 +2,7 @@ import { axiosInstance } from "../axios/instance";
 import { employeeQuery } from "../querys/employee";
 import { dataFormat } from "../adapters/employee";
 import { sign } from "../utilities/jwt/index";
-//16800518
-//andiline
+
 export const loginController = async (req, res) => {
   try {
     const { body } = req;
