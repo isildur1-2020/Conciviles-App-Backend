@@ -1,4 +1,5 @@
 import "dotenv/config";
+import "./database/mongo";
 import cors from "cors";
 import morgan from "morgan";
 import express from "express";

@@ -9,8 +9,9 @@ import { currentDate, objectTime } from "../utilities/moment/timezone";
 const createItem = async (req, res) => {
   try {
     const { body } = req;
+    const { Example2 } = await boards();
     const { err, itemsFound, message } = await findItemMonday({
-      board_id: boards.Example2,
+      board_id: Example2,
       column_id: outputColumns.fecha,
       column_values: [currentDate()],
     });
@@ -28,7 +29,7 @@ const createItem = async (req, res) => {
         message: "Ya se ha guardado el registro de este usuario.",
       });
     const resp = await createItemService({
-      boardId: boards.Example2,
+      boardId: Example2,
       groupId: groups.Archivo,
       itemName: body?.id,
       columnValues: assitanceStringify(body),
@@ -59,8 +60,9 @@ const updateDate = async (req, res) => {
   try {
     const { body } = req;
     const { output } = body;
+    const { Example2 } = await boards();
     const variables = {
-      board_id: boards.Example2,
+      board_id: Example2,
       column_id: outputColumns.fecha,
       column_values: [currentDate()],
     };
@@ -82,7 +84,7 @@ const updateDate = async (req, res) => {
           "No se ha encontrado un registro para actualizar, espera un momento e intenta de nuevo.",
       });
     const variables2 = {
-      board_id: boards.Example2,
+      board_id: Example2,
       item_id: Number(itemId?.id),
       column_id: outputColumns.hora_salida,
       value: JSON.stringify(objectTime(output)),

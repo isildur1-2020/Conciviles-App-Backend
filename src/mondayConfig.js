@@ -1,3 +1,6 @@
+import { axiosInstance } from "./axios/instance";
+import { CurrentBoardModel } from "./models/currentBoard";
+
 export const groups = {
   Archivo: "grupo_nuevo3167",
   Maquinaria: "grupo_nuevo95124",
@@ -6,9 +9,22 @@ export const groups = {
   "Planta 2": "topics",
 };
 
-export const boards = {
-  Example: 2265405576,
-  Example2: 2487522424,
+const getBoard = async () => {
+  try {
+    const resp = await CurrentBoardModel.findOne();
+    const { id: currentBoardId } = resp;
+    return currentBoardId;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+export const boards = async () => {
+  const currentBoard = await getBoard();
+  return {
+    Example: 2265405576,
+    Example2: currentBoard,
+  };
 };
 
 export const outputColumns = {
