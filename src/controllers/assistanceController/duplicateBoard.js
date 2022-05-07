@@ -1,18 +1,23 @@
 import { mondayService } from "../../services/mondayService";
 import { createBoard } from "../../querys/createBoard";
 import { getAssistanceBoard } from "../../utilities/monday/boards";
+import { currentDate } from "../../utilities/moment/timezone";
 
 export const duplicateBoard = async (req, res, next) => {
   try {
-    const assistanceBoardId = await getAssistanceBoard();
-    const resp = await mondayService({ query: createBoard(assistanceBoardId) });
-    const boardId = resp.data.data.duplicate_board.board.id;
-    if (!boardId)
+    req.assistanceBoardId = await getAssistanceBoard();
+    const variables = {
+      board_id: req.assistanceBoardId,
+      board_name: `Asistencia - ${currentDate()}`,
+    };
+    const resp = await mondayService({ query: createBoard, variables });
+    const boardInfo = resp?.data?.data?.duplicate_board?.board;
+    if (!boardInfo)
       return res.status(200).json({
         err: true,
         message: "Error al duplicar la tabla",
       });
-    req.assitanceBoardId = boardId;
+    req.boardInfo = boardInfo;
     next();
   } catch (err) {
     console.log(err);

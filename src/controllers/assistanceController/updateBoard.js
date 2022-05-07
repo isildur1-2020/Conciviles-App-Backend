@@ -3,13 +3,12 @@ import { mondayBoards } from "../../mondayConfig";
 
 export const updateBoard = async (req, res) => {
   try {
+    const { id, name } = req.boardInfo;
     await CurrentBoardModel.findByIdAndUpdate(
       mondayBoards.idAssistanceBoardDB,
-      {
-        id: req.assitanceBoardId,
-      }
+      { id, name }
     );
-    res.status({
+    res.status(200).json({
       err: false,
       message: "Tabla duplicada exitosamente",
     });
@@ -17,7 +16,7 @@ export const updateBoard = async (req, res) => {
     console.log(err);
     res.status(200).json({
       err: true,
-      message: err,
+      message: "No se ha podido actualizar MongoDB",
     });
   }
 };
