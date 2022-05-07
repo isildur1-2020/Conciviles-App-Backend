@@ -1,4 +1,3 @@
-import { axiosInstance } from "./axios/instance";
 import { CurrentBoardModel } from "./models/currentBoard";
 
 export const groups = {
@@ -17,6 +16,11 @@ const getBoard = async () => {
   } catch (err) {
     throw new Error(err);
   }
+};
+
+export const mondayBoards = {
+  employees: 1372142509,
+  idAssistanceBoardDB: "6275d11537440c57a9075865",
 };
 
 export const boards = async () => {

@@ -16,7 +16,7 @@ export const clearColumns = (data) => {
   return info;
 };
 
-export const dataFormat = (data) => {
+export const employeesFormat = (data) => {
   let info = data?.data?.data?.boards?.[0]?.items;
   info = info.reduce((prev, curr) => {
     const { name, column_values } = curr;

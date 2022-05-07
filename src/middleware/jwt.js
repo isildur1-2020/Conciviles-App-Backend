@@ -5,7 +5,8 @@ export const authMiddleware = (req, res, next) => {
   const token = headers["authorization"];
   const isValid = verify(token);
   if (isValid) return next();
-  res.status(403).json({
+  res.status(401).json({
+    err: true,
     message: "Unauthorized",
   });
 };

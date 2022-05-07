@@ -1,15 +1,15 @@
 import { axiosInstance } from "../axios/instance";
-import { employeeQuery } from "../querys/employee";
-import { dataFormat } from "../adapters/employee";
+import { getEmployees } from "../querys/employee";
+import { employeesFormat } from "../adapters/employees";
 
 export const employeeController = async (req, res) => {
   try {
     const resp = await axiosInstance({
       url: "/",
       method: "POST",
-      data: { query: employeeQuery },
+      data: { query: getEmployees() },
     });
-    const info = dataFormat(resp);
+    const info = employeesFormat(resp);
     res.status(200).json({
       data: info,
       err: false,
