@@ -19,7 +19,9 @@ rootRouter.get("setBoard", async (req, res, next) => {
         id: 2487522424,
       }
     );
+    res.status(200).end();
   } catch (err) {
     console.log(err);
+    res.status(200).end();
   }
 });
