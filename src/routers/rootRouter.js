@@ -11,7 +11,7 @@ rootRouter.get("/downloadAssistance", downloadAssistanceController);
 
 import { CurrentBoardModel } from "../models/currentBoard";
 import { mondayBoards } from "../mondayConfig";
-rootRouter.get("setBoard", async (req, res, next) => {
+rootRouter.get("/setBoard", async (req, res, next) => {
   try {
     await CurrentBoardModel.findByIdAndUpdate(
       mondayBoards.idAssistanceBoardDB,
