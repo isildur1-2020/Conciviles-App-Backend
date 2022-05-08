@@ -1,9 +1,9 @@
-export const infoQuery = `
+export const infoQuery = (board_id) => `
     query {
-        boards(ids: 2487522424) {
-        columns {
-            id
-            settings_str
-        }
+        boards(ids: ${board_id}) {
+            columns {
+                id
+                settings_str
+            }
         }
     }`;
