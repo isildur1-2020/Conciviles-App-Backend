@@ -7,7 +7,7 @@ export const main = async (req, res, next) => {
     const { username } = req.body;
     let resp = await mondayService({ query: getEmployees() });
     resp = employeesFormat(resp);
-    req.user = resp.find(({ label }) => label === username);
+    req.user = resp.find(({ info }) => info.get("texto")?.value === username);
     next();
   } catch (err) {
     console.log(err);
