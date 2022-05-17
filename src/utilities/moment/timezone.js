@@ -13,3 +13,8 @@ export const currentDate = (time = null) => {
   const date = !time ? moment() : moment(time);
   return date.tz("America/Bogota").format("YYYY-MM-DD");
 };
+
+export const currentFullDate = (time = null) => {
+  const date = !time ? moment() : moment(time);
+  return date.tz("America/Bogota").format("LLL");
+};

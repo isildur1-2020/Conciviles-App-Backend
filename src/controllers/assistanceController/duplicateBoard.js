@@ -1,14 +1,14 @@
 import { mondayService } from "../../services/mondayService";
 import { createBoard } from "../../querys/createBoard";
 import { getAssistanceBoard } from "../../utilities/monday/boards";
-import { currentDate } from "../../utilities/moment/timezone";
+import { currentFullDate } from "../../utilities/moment/timezone";
 
 export const duplicateBoard = async (req, res, next) => {
   try {
     req.assistanceBoardId = await getAssistanceBoard();
     const variables = {
       board_id: req.assistanceBoardId,
-      board_name: `Asistencia - ${currentDate()}`,
+      board_name: `Asistencia - ${currentFullDate()}`,
     };
     const resp = await mondayService({ query: createBoard, variables });
     const boardInfo = resp?.data?.data?.duplicate_board?.board;
