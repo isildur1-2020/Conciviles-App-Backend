@@ -2,11 +2,17 @@ import { sign } from "../../utilities/jwt/index";
 
 export const authenticated = (req, res) => {
   // AUTENTICACIÓN
-  const supervisor = req.user?.info?.[0]?.value;
+  const { username } = req.body;
+  const supervisor = req.user?.info.get("apellidos_y_nombre")?.value;
+  const credentials = {
+    username,
+    supervisor,
+    rol: req.charge,
+  };
   res.status(200).json({
     message: "Authenticated",
     err: false,
-    supervisor,
-    token: sign("supervisor"),
+    credentials,
+    token: sign(credentials),
   });
 };
