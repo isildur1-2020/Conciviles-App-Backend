@@ -1,5 +1,5 @@
 export const clearColumns = (data) => {
-  let info = new Map();
+  let info = {};
   let aux = {};
   const options = ["apellidos_y_nombre", "cargo6", "clase", "texto"];
   data.forEach(({ id, text, value }) => {
@@ -10,7 +10,7 @@ export const clearColumns = (data) => {
         text,
         value: JSON.parse(value),
       };
-      info.set(id, aux);
+      info[id] = aux;
     }
   });
   return info;
@@ -23,7 +23,7 @@ export const employeesFormat = (data) => {
     return [
       ...prev,
       {
-        id: name,
+        label: name,
         info: clearColumns(column_values),
       },
     ];

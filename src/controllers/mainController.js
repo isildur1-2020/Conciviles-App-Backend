@@ -34,6 +34,7 @@ const createItem = async (req, res) => {
       itemName: body?.id,
       columnValues: assitanceStringify(body),
     });
+    console.log(resp.data);
     const isCreated = resp?.data?.data?.create_item?.id;
     if (!isCreated)
       return res.status(200).json({

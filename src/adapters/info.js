@@ -23,7 +23,7 @@ const joinData = (data) => {
 };
 
 export const dataFormat = (data) => {
-  let info = data.data.data.boards[0].columns;
+  let info = data?.data?.data?.boards?.[0]?.columns;
   info = info.filter(({ id }) => options.some((el) => el === id));
   info = info.reduce(
     (prev, curr) => ({
