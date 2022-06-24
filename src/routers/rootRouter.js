@@ -13,10 +13,12 @@ import { CurrentBoardModel } from "../models/currentBoard";
 import { mondayBoards } from "../mondayConfig";
 rootRouter.get("/setBoard", async (req, res, next) => {
   try {
+    const { board } = req.params;
+    const defaultBoard = 2487522424;
     await CurrentBoardModel.findByIdAndUpdate(
       mondayBoards.idAssistanceBoardDB,
       {
-        id: 2487522424,
+        id: board,
       }
     );
     res.status(200).end();

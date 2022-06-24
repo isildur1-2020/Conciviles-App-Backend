@@ -1,0 +1,13 @@
+# TO QUERY INFO OF COLUMNS
+{
+    boards(ids: 2814712558) {
+      items(limit: 1000) {
+        name
+        column_values {
+          id
+          text
+          value
+        }
+      }
+    }
+}
