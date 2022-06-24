@@ -9,6 +9,7 @@ export const duplicateBoard = async (req, res, next) => {
     const variables = {
       board_id: req.assistanceBoardId,
       board_name: `Asistencia - ${currentFullDate()}`,
+      keep_subscribers: true,
     };
     const resp = await mondayService({ query: createBoard, variables });
     const boardInfo = resp?.data?.data?.duplicate_board?.board;

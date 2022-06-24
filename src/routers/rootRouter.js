@@ -13,17 +13,21 @@ import { CurrentBoardModel } from "../models/currentBoard";
 import { mondayBoards } from "../mondayConfig";
 rootRouter.get("/setBoard", async (req, res, next) => {
   try {
-    const { board } = req.params;
+    const { boardId } = req.query;
     const defaultBoard = 2487522424;
     await CurrentBoardModel.findByIdAndUpdate(
       mondayBoards.idAssistanceBoardDB,
       {
-        id: board,
+        id: boardId,
       }
     );
-    res.status(200).end();
+    res.status(200).json({
+      message: `Board successfully changed to ${boardId}`,
+    });
   } catch (err) {
     console.log(err);
-    res.status(200).end();
+    res.status(200).json({
+      message: `Error on set board ID`,
+    });
   }
 });
