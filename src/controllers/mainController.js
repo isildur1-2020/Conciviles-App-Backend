@@ -60,7 +60,7 @@ const createItem = async (req, res) => {
 const updateDate = async (req, res) => {
   try {
     const { body } = req;
-    const { output } = body;
+    const { output, supervisor } = body;
     const { Example2 } = await boards();
     const variables = {
       board_id: Example2,
@@ -84,12 +84,28 @@ const updateDate = async (req, res) => {
         message:
           "No se ha encontrado un registro para actualizar, espera un momento e intenta de nuevo.",
       });
+    // VARIABLES TO CHANGE DATE
     const variables2 = {
       board_id: Example2,
       item_id: Number(itemId?.id),
       column_id: outputColumns.hora_salida,
       value: JSON.stringify(objectTime(output)),
     };
+    // VARIABLES TO CHANGE SUPERVISOR
+    const variables3 = {
+      board_id: Example2,
+      item_id: Number(itemId?.id),
+      column_id: "dup__of_supervisor_inspector_ingreso",
+      value: JSON.stringify(supervisor),
+    };
+    await axiosInstance({
+      url: "/",
+      method: "POST",
+      data: {
+        variables: variables3,
+        query: update,
+      },
+    });
     const resp2 = await axiosInstance({
       url: "/",
       method: "POST",
